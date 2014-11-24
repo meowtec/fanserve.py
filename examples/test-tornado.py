@@ -1,3 +1,5 @@
+# coding:utf-8
+
 import sys
 
 sys.path.append("..")
@@ -14,7 +16,7 @@ class MyTornadoFans(fans.Tornado):
             self.reply_articles([
                 {
                     "display_name": "两个故事",
-                    "summary": "今天讲两个故事，分享给你。谁是公司？谁又是中国人？​",
+                    "summary": "今天讲两个故事，分享给你。谁是公司？谁又是中国人？",
                     "image": "http://storage.mcp.weibo.cn/0JlIv.jpg",
                     "url": "http://e.weibo.com/mediaprofile/article/detail?uid=1722052204&aid=983319"
                 }
