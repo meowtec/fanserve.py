@@ -72,6 +72,9 @@ class Core():
     def reply_text(self, text):
         self.reply(msg_type='text', data={'text': text})
 
+    def reply_articles(self, articles):
+        self.reply(msg_type='articles', data={'articles': articles})
+
     @staticmethod
     def __create_signature(message_arr):
         message_arr.sort()
