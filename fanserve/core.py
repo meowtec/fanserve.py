@@ -9,6 +9,7 @@ class Core():
     receive_text = None
     receive_event = None
     receive_default = None
+    receive_position = None
     app_secret = None
 
     def post(self):
@@ -20,6 +21,7 @@ class Core():
         self.body_data = body_data
         msg_type = body_data.get('type')
         msg_text = body_data.get('text')
+        msg_data = body_data.get('data')
 
         if msg_type == 'text' and self.receive_text:
             self.receive_text(msg_text)
@@ -27,6 +29,9 @@ class Core():
         elif msg_type == 'event' and self.receive_event:
             event_type = body_data['data']['subtype']
             self.receive_event(event_type)
+
+        elif msg_type == 'position' and self.receive_position:
+            self.receive_position(msg_data.get('longitude'), msg_data.get('latitude'))
 
         elif self.receive_default:
             self.receive_default(body_data)
