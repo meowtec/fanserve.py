@@ -12,6 +12,8 @@ class Core():
     receive_default = None
     receive_position = None
     app_secret = None
+    receive_follow = None
+    receive_unfollow = None
 
     def post(self):
         auth_result = self.__authentication()
@@ -27,9 +29,16 @@ class Core():
         if msg_type == 'text' and self.receive_text:
             self.receive_text(msg_text)
 
-        elif msg_type == 'event' and self.receive_event:
+        elif msg_type == 'event':
             event_type = body_data['data']['subtype']
-            self.receive_event(event_type)
+            if event_type == 'follow' and self.receive_follow:
+                self.receive_follow()
+            elif event_type == 'unfollow' and self.receive_unfollow:
+                self.receive_unfollow()
+            elif event_type == 'click' and self.receive_click:
+                self.receive_click(body_data['data']['key'])
+            elif self.receive_default:
+                self.receive_default(body_data)
 
         elif msg_type == 'position' and self.receive_position:
             self.receive_position(msg_data.get('longitude'), msg_data.get('latitude'))
