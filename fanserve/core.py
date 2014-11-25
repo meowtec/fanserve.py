@@ -1,8 +1,14 @@
 # coding:utf-8
 
+import sys
 import hashlib
 import json
 import urllib
+try:
+    import urllib.parse
+except:
+    pass
+
 import abc
 
 
@@ -75,7 +81,11 @@ class Core():
             "sender_id": self.body_data['receiver_id'],
             "type": msg_type
         }
-        encode_data = urllib.quote(json.dumps(data))
+        if hasattr(urllib, 'quote'):
+            encode_data = urllib.quote(json.dumps(data))
+        else:
+            encode_data = urllib.parse.quote(json.dumps(data))
+            
         send_data['data'] = encode_data
         self.write(json.dumps(send_data))
 
@@ -89,7 +99,7 @@ class Core():
     def __create_signature(message_arr):
         message_arr.sort()
         join_str = ''.join(message_arr)
-        return hashlib.sha1(join_str).hexdigest()
+        return hashlib.sha1(join_str.encode(encoding='UTF-8')).hexdigest()
 
     @abc.abstractmethod
     def body_raw(self):

@@ -1,4 +1,6 @@
+#!/usr/local/bin/python2
 # coding:utf-8
+# python 2 only
 
 import hashlib
 import urllib
@@ -27,7 +29,7 @@ querys = {
 }
 req = urllib2.Request(url + '?' + urllib.urlencode(querys))
 request = urllib2.urlopen(req)
-print request.read()
+print(request.read())
 
 # POST
 data = {
@@ -40,4 +42,4 @@ data = {
 }
 
 request = urllib2.urlopen(req, json.dumps(data))
-print request.read()
+print(request.read())

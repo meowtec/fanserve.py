@@ -1,6 +1,6 @@
 # coding:utf-8
 
-from core import Core
+from .core import Core
 
 
 class Tornado(Core):
@@ -12,7 +12,7 @@ class Tornado(Core):
         return self.__cxt.get_argument(name, None)
 
     def body_raw(self):
-        return self.__cxt.request.body
+        return self.__cxt.request.body.decode()
 
     def write(self, text):
         self.__cxt.write(text)

@@ -27,7 +27,7 @@ class MyTornadoFans(fans.Tornado):
     def receive_event(self, event):
         self.reply_text('event: ' + event)
 
-    def receive_default(self):
+    def receive_default(self, data):
         self.reply_text('发送『文章』，将返回文章；发送其他文字将原文返回。')
 
 
