@@ -31,15 +31,29 @@ req = urllib2.Request(url + '?' + urllib.urlencode(querys))
 request = urllib2.urlopen(req)
 print(request.read())
 
+
 # POST
 data = {
     "type": "text",
     "receiver_id": '1902538057',
     "sender_id": '2489518277',
     "created_at": "Mon Jul 16 18:09:20 +0800 2012",
-    "text": "私信或留言内容",
+    "text": "xxxx",
     "data": {}
 }
+req = urllib2.Request(url + '?' + urllib.urlencode(querys))
+request = urllib2.urlopen(req, json.dumps(data))
+print(request.read())
 
+# POST
+data = {
+    "type": "text",
+    "receiver_id": '1902538057',
+    "sender_id": '2489518277',
+    "created_at": "Mon Jul 16 18:09:20 +0800 2012",
+    "text": "文章",
+    "data": {}
+}
+req = urllib2.Request(url + '?' + urllib.urlencode(querys))
 request = urllib2.urlopen(req, json.dumps(data))
 print(request.read())

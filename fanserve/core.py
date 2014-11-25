@@ -13,13 +13,15 @@ import abc
 
 
 class Core():
+    app_secret = None
     receive_text = None
     receive_event = None
     receive_default = None
     receive_position = None
-    app_secret = None
     receive_follow = None
     receive_unfollow = None
+    receive_click = None
+    __body = ''
 
     def post(self):
         auth_result = self.__authentication()
@@ -52,10 +54,14 @@ class Core():
         elif self.receive_default:
             self.receive_default(body_data)
 
+        return self.__body
+
     def get(self):
         auth = self.__authentication()
         if auth is True:
-            self.write(self.__safe_get_argument('echostr'))
+            self.__write(self.__safe_get_argument('echostr'))
+
+        return self.__body
 
     def __safe_get_argument(self, name):
         try:
@@ -85,9 +91,10 @@ class Core():
             encode_data = urllib.quote(json.dumps(data))
         else:
             encode_data = urllib.parse.quote(json.dumps(data))
-            
+
         send_data['data'] = encode_data
-        self.write(json.dumps(send_data))
+        return_data = json.dumps(send_data)
+        self.__write(return_data)
 
     def reply_text(self, text):
         self.reply(msg_type='text', data={'text': text})
@@ -112,3 +119,7 @@ class Core():
     @abc.abstractmethod
     def write(self, text):
         pass
+
+    def __write(self, text):
+        self.write(text)
+        self.__body = self.__body + text
